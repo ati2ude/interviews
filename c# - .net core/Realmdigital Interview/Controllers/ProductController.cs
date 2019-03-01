@@ -1,7 +1,9 @@
 using System.Collections.Generic;
-using System.Net;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using RD.Common.Extensions;
+using RealD.Application.Repositories.Products;
+using RealD.Application.Repositories.Products.CQRS.Queries;
 
 namespace Realmdigital_Interview.Controllers
 {
@@ -9,7 +11,13 @@ namespace Realmdigital_Interview.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        
+        private IProductRepository _productRepository;
+
+        public ProductController(IProductRepository productRepository)
+        {
+            _productRepository = productRepository;
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
@@ -17,90 +25,29 @@ namespace Realmdigital_Interview.Controllers
         }
         
         [HttpGet("{id}")]
-        public object GetProductById(string id)
+        public async Task<IActionResult> GetProductByIdAsync(string id)
         {
-            string response = "";
-
-            using (var client = new WebClient())
+            if (Extension.IsNumeric(id))
             {
-                client.Headers[HttpRequestHeader.ContentType] = "application/json";
-                response = client.UploadString("http://192.168.0.241/eanlist?type=Web", "POST", "{ \"id\": \"" + id + "\" }");
+                return Ok(await _productRepository.GetSingle(new GetSingleProductQuery { ID = id }));
             }
-            var reponseObject = JsonConvert.DeserializeObject<List<ApiResponseProduct>>(response);
-
-            var result = new List<object>();
-            for (int i = 0; i < reponseObject.Count; i++)
+            else
             {
-                var prices = new List<object>();
-                for (int j = 0; j < reponseObject[i].PriceRecords.Count; j++)
-                {
-                    if (reponseObject[i].PriceRecords[j].CurrencyCode == "ZAR")
-                    {
-                        prices.Add(new
-                        {
-                            Price = reponseObject[i].PriceRecords[j].SellingPrice,
-                            Currency = reponseObject[i].PriceRecords[j].CurrencyCode
-                        });
-                    }
-                }
-                result.Add(new
-                {
-                    Id = reponseObject[i].BarCode,
-                    Name = reponseObject[i].ItemName,
-                    Prices = prices
-                });
+                return BadRequest(new { message = "Invalid or no Id" });
             }
-            return result.Count > 0 ? result[0] : null;
         }
 
         [HttpGet("search/{productName}")]
-        public List<object> GetProductsByName(string productName)
+        public async Task<IActionResult> GetProductsByName(string productName)
         {
-            string response = "";
-
-            using (var client = new WebClient())
+            if (!string.IsNullOrEmpty(productName))
             {
-                client.Headers[HttpRequestHeader.ContentType] = "application/json";
-                response = client.UploadString("http://192.168.0.241/eanlist?type=Web", "POST", "{ \"names\": \"" + productName + "\" }");
+                return Ok(await _productRepository.GetByName(new GetProductsByNameQuery { Name = productName }));
             }
-            var reponseObject = JsonConvert.DeserializeObject<List<ApiResponseProduct>>(response);
-
-            var result = new List<object>();
-            for (int i = 0; i < reponseObject.Count; i++)
+            else
             {
-                var prices = new List<object>();
-                for (int j = 0; j < reponseObject[i].PriceRecords.Count; j++)
-                {
-                    if (reponseObject[i].PriceRecords[j].CurrencyCode == "ZAR")
-                    {
-                        prices.Add(new
-                        {
-                            Price = reponseObject[i].PriceRecords[j].SellingPrice,
-                            Currency = reponseObject[i].PriceRecords[j].CurrencyCode
-                        });
-                    }
-                }
-                result.Add(new
-                {
-                    Id = reponseObject[i].BarCode,
-                    Name = reponseObject[i].ItemName,
-                    Prices = prices
-                });
+                return BadRequest(new { message = "Invalid or no product name" });
             }
-            return result;
-        }
-        
-        class ApiResponseProduct
-        {
-            public string BarCode { get; set; }
-            public string ItemName { get; set; }
-            public List<ApiResponsePrice> PriceRecords { get; set; }
-        }
-
-        class ApiResponsePrice
-        {
-            public string SellingPrice { get; set; }
-            public string CurrencyCode { get; set; }
         }
     }
 }

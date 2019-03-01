@@ -1,6 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Realmdigital Interview", "Realmdigital Interview\Realmdigital Interview.csproj", "{B8989A41-4738-4774-85CD-4B66F2E774E9}"
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realmdigital Interview", "Realmdigital Interview\Realmdigital Interview.csproj", "{B8989A41-4738-4774-85CD-4B66F2E774E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrustructure", "Infrustructure", "{52BF8EF8-EA83-4211-9117-863A1687B7A2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{2E050299-CDC2-4A9B-B9FB-9C07CE25C9C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealD.Domain", "Core\RealD.Domain\RealD.Domain.csproj", "{FD618554-841E-41CA-832C-F338FEF5EC0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealD.Application", "Core\RealD.Application\RealD.Application.csproj", "{805DB2F9-8FFE-4C84-9B13-9A24C4D15E0E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{554296F6-B433-476D-9CA5-B5E889EDD8C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RD.Common", "Common\RD.Common\RD.Common.csproj", "{9E5937B1-4453-4E4D-8AAA-8678F2A6FD47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +27,29 @@ Global
 		{B8989A41-4738-4774-85CD-4B66F2E774E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8989A41-4738-4774-85CD-4B66F2E774E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8989A41-4738-4774-85CD-4B66F2E774E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD618554-841E-41CA-832C-F338FEF5EC0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD618554-841E-41CA-832C-F338FEF5EC0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD618554-841E-41CA-832C-F338FEF5EC0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD618554-841E-41CA-832C-F338FEF5EC0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{805DB2F9-8FFE-4C84-9B13-9A24C4D15E0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{805DB2F9-8FFE-4C84-9B13-9A24C4D15E0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{805DB2F9-8FFE-4C84-9B13-9A24C4D15E0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{805DB2F9-8FFE-4C84-9B13-9A24C4D15E0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E5937B1-4453-4E4D-8AAA-8678F2A6FD47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E5937B1-4453-4E4D-8AAA-8678F2A6FD47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E5937B1-4453-4E4D-8AAA-8678F2A6FD47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E5937B1-4453-4E4D-8AAA-8678F2A6FD47}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B8989A41-4738-4774-85CD-4B66F2E774E9} = {52BF8EF8-EA83-4211-9117-863A1687B7A2}
+		{FD618554-841E-41CA-832C-F338FEF5EC0A} = {2E050299-CDC2-4A9B-B9FB-9C07CE25C9C3}
+		{805DB2F9-8FFE-4C84-9B13-9A24C4D15E0E} = {2E050299-CDC2-4A9B-B9FB-9C07CE25C9C3}
+		{9E5937B1-4453-4E4D-8AAA-8678F2A6FD47} = {554296F6-B433-476D-9CA5-B5E889EDD8C0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DDF138E1-4C9A-472C-AB8F-AA649125C2F5}
 	EndGlobalSection
 EndGlobal
